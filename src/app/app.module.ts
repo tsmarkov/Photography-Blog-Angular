@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AppComponent } from './app.component';
 
-import { APP_KEY, APP_SECRET } from '../environments/evnvironment.variables'
+import { APP_KEY, APP_SECRET } from '../environments/environment.variables'
 
 console.log(APP_KEY);
 console.log(APP_SECRET);
