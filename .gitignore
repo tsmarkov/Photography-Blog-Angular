@@ -58,7 +58,7 @@ typings/
 .env
 
 # variables
-.variables.ts
+environment.variables.ts
 
 # next.js build output
 .next
