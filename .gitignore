@@ -57,6 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
+#config files
+.config.ts
+
 # variables
 environment.variables.ts
 
