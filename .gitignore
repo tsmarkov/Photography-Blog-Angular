@@ -58,7 +58,7 @@ typings/
 .env
 
 #config files
-.config.ts
+firebase.config.ts
 
 # variables
 environment.variables.ts
