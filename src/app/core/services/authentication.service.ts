@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-import { Router } from '../../../../../node_modules/@angular/router';
-import { ToastrService } from '../../../../../node_modules/ngx-toastr';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -16,17 +16,14 @@ export class AuthenticationService {
 
     signUp(email: string, password: string, displayName: string, photoURL: string) {
         return firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(function (res) {
-                // res.user.displayName = 'pancho';
-                let user = res.user;
-
+            .then((res) => {
                 firebase.auth()
                     .currentUser
                     .updateProfile({
                         displayName,
                         photoURL
                     }).then(data => {
-                        this.toastr.success(data)
+                        this.signIn(email, password);
                     })
             })
             .catch(err => this.toastr.error(err))
@@ -35,9 +32,6 @@ export class AuthenticationService {
     signIn(email: string, password: string) {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(userData => {
-                console.log(userData);
-
-
                 firebase.auth().currentUser.getIdToken()
                     .then((token: string) => {
                         sessionStorage.setItem('authToken', token);
@@ -56,7 +50,7 @@ export class AuthenticationService {
     signOut() {
         firebase.auth().signOut()
             .then(() => {
-                this.clearToken();
+                this.clearStorage();
 
                 this.router.navigate(['/'])
                 this.toastr.success('Signed out successfully')
@@ -86,7 +80,13 @@ export class AuthenticationService {
         sessionStorage.setItem('authToken', token)
     }
 
-    private clearToken() {
-        sessionStorage.removeItem('authToken')
+    private clearStorage() {
+        let i = sessionStorage.length;
+        while (i--) {
+            let key = sessionStorage.key(i);
+            if (key) {
+                sessionStorage.removeItem(key);
+            }
+        }
     }
 }

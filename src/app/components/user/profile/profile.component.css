@@ -1,0 +1,16 @@
+img {
+    width: 240px;
+    height: 240px;
+    border: 2px solid black;
+    border-radius: 200px;
+}
+
+.user-profile {
+    margin-top: 20px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: rgba(220, 220, 220, 0.5);
+    border-radius: 20px; 
+    /* border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px; */
+}

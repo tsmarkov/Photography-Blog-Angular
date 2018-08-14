@@ -6,8 +6,10 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AuthenticationGuard } from './core/guards/authentication.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthenticationGuard] },
+  { path: '', component: HomeComponent },
   { path: 'auth', loadChildren: './components/authentication/authentication.module#AuthenticationModule' },
+  { path: 'user', loadChildren: './components/user/user.module#UserModule', canActivate: [AuthenticationGuard] },
+  { path: 'photos', loadChildren: './components/photos/photos.module#PhotosModule' },
   { path: '**', component: NotFoundComponent }
 ]
 

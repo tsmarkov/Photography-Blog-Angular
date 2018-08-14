@@ -1,0 +1,10 @@
+<div class="row user-profile">
+  <div class="col-md-3"></div>
+  <div class="col-md-6 text-center">
+    <h1><p>{{this.userService.getUsername()}}</p></h1>
+    <hr>
+    <img class="mx-auto d-block" src={{this.userService.getProfilePicture()}}
+      alt="Profile picture">
+  </div>
+  <div class="col-md-3"></div>
+</div>

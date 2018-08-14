@@ -13,6 +13,12 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/">Home</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/photos/upload">Upload photo</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/photos/all">All photos</a>
+      </li>
       <!-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="http://example.com"
           id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
@@ -27,16 +33,29 @@
     <hr>
 
     <!-- SIGN OPTIONS - IF AUTHENTICATED [Sign Out] ELSE [Sign In or Sign Up] -->
-    <div *ngIf="authService.isAuthenticated();else sign_in_or_up" class="my-2
+    <div *ngIf="authService.isAuthenticated();else sign_in_or_up" class="my-2.
       my-lg-0">
       <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a href="javascript:void(0)">
+            <ul class="navbar-nav mr-auto" routerLink="/user/profile">
+              <li class="nav-item">
+                <img class="nav-link" id="profile-pic"
+                  src={{this.userService.getProfilePicture()}} alt="profile">
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">{{this.userService.getUsername()}}</a>
+              </li>
+            </ul>
+          </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/auth/signout">Sign out</a>
         </li>
       </ul>
     </div>
     <ng-template #sign_in_or_up>
-      <div *ngIf="!authService.isAuthenticated()" class="my-2 my-lg-0">
+      <div class="my-2 my-lg-0">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <a class="nav-link" routerLink="/auth/signin">Sign in</a>

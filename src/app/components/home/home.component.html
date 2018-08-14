@@ -1,10 +1,16 @@
-<div class="starter-template">
-  <h1>Home works!</h1>
-  <p class="lead">Use this document as a way to quickly start any new project.<br>
-    All you get is this text and a mostly barebones HTML document.</p>
+<div *ngIf="this.authService.isAuthenticated();else sign_in_or_up"
+  id="home-join">
+  <h1>Wellcome {{this.userService.getUsername()}}!</h1>
 </div>
-<br>
-<div>
-  <p>Username: {{this.username}}</p>
-  <img src={{profilePicture}} alt="Profile picture">
-</div>
+<ng-template #sign_in_or_up>
+  <div id="home-join">
+    <h1>Wellcome!</h1>
+    <br>
+    <a class="btn btn-info btn-lg active"
+      role="button"
+      aria-pressed="true"
+      routerLink="/auth/signup">
+      Join now
+    </a>
+  </div>
+</ng-template>
