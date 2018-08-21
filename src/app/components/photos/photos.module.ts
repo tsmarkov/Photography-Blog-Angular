@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
     PhotosRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   declarations: [PhotoPreviewComponent, PhotoUploadComponent, PhotoEditComponent, PhotosAllComponent]
 })

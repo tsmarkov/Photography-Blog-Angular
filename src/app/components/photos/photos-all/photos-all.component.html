@@ -1,3 +1,15 @@
-<p>
-  photos-all works!
-</p>
+<div class="album text-muted">
+  <div class="row">
+    <div
+      *ngFor="let photo of photos;"
+      [routerLink]="['/photos/preview/', photo.name]"
+      class="col-sm-3 img-fluid image">
+
+      <img src={{photo.downloadURL}} alt="pic" class="img-thumbnail">
+      <p>{{photo.title}}</p>
+      <p>by {{photo.username}}</p>
+      <p>{{photo.creationDate}}</p>
+
+    </div>
+  </div>
+</div>
