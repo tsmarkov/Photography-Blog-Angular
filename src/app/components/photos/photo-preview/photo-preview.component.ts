@@ -26,8 +26,8 @@ export class PhotoPreviewComponent implements OnInit {
 
   deletePhoto() {
     console.log('In delete');
-    
-    // this.photoService
-    //   .delete(this.id, this.photo.category, this.photo.userId);
+
+    this.photoService
+      .delete(this.id, this.photo.category, this.photo.userId);
   }
 }

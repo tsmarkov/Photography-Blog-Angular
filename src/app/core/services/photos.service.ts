@@ -81,14 +81,19 @@ export class PhotosService {
     }
 
     delete(photoId: string, category: string, userId: string) {
-        firebase.database()
-            .ref(`/photos/`)
-            .child(photoId)
-            .remove(() => {
-                this.userService.removePhotoIdFromUser(userId, photoId);
-                this.categoryService.deletePhotoFromCategory(category, photoId);
+        firebase.storage()
+            .ref(`uploads/${photoId}`)
+            .delete()
+            .then(() => {
+                firebase.database()
+                    .ref(`/photos/`)
+                    .child(photoId)
+                    .remove(() => {
+                        this.userService.removePhotoIdFromUser(userId, photoId);
+                        this.categoryService.deletePhotoFromCategory(category, photoId);
+                    })
+                    .then(() => this.toastr.success('Photo deleted'))
             })
-            .then(() => this.toastr.success('Photo deleted'))
             .catch(() => this.toastr.error('Could not delete the photo'))
     }
 
