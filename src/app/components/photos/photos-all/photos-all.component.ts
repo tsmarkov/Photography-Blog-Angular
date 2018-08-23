@@ -37,7 +37,7 @@ export class PhotosAllComponent implements OnInit {
 
           for (const element of photosIds) {
             this.photoService
-              .getByName(element.photId)
+              .getByName(element.photoId)
               .then((data) => {
                 photos.push(data);
               })

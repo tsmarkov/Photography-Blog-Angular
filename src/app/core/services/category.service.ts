@@ -11,14 +11,14 @@ export class CategoryService {
   constructor(private toastr: ToastrService, private userService: UserService) { }
 
   // Add photoId to specific category in db 
-  addPhotoIdToCategory(photId: string, categoryName: string): Promise<any> {
+  addPhotoIdToCategory(photoId: string, categoryName: string): Promise<any> {
     if (!this.isExisting(categoryName)) {
       this.createCategory(categoryName);
     }
 
     return firebase.database()
-      .ref(`/categories/${categoryName}/${photId}`)
-      .set({ photId })
+      .ref(`/categories/${categoryName}/${photoId}`)
+      .set({ photoId })
   }
 
   // Delete photo by id from category
