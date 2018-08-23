@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PhotosService } from '../../../core/services/photos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './photo-edit.component.html',
   styleUrls: ['./photo-edit.component.css']
 })
-export class PhotoEditComponent {
+export class PhotoEditComponent implements OnInit {
   id: string;
   photo: any;
   oldCategory: string;
@@ -19,8 +19,32 @@ export class PhotoEditComponent {
     private route: ActivatedRoute,
     private photoService: PhotosService,
     private fb: FormBuilder,
-    private toastr: ToastrService
-  ) {
+    private toastr: ToastrService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    this.loadData();
+  }
+
+  edit() {
+    if (this.photoInfo.valid) {
+      let title = this.photoInfo.get('title').value;
+      let newCategory = this.photoInfo.get('category').value;
+      let location = this.photoInfo.get('location').value;
+      let description = this.photoInfo.get('description').value;
+
+      this.photoService.edit(this.id, title, this.oldCategory, newCategory, location, description)
+        .then(() => {
+          this.toastr.success('Photo edited successfully')
+          this.router.navigate([`/photos/preview/${this.id}`]);
+        });
+    } else {
+      this.toastr.error('Invalid form')
+    }
+  }
+
+  private loadData() {
     this.route.url.subscribe((params) => {
       this.id = params[1].path;
 
@@ -36,19 +60,7 @@ export class PhotoEditComponent {
             'description': [this.photo.description]
           });
         })
+        .catch(console.error);
     })
-  }
-
-  edit() {
-    if (this.photoInfo.valid) {
-      let title = this.photoInfo.get('title').value;
-      let newCategory = this.photoInfo.get('category').value;
-      let location = this.photoInfo.get('location').value;
-      let description = this.photoInfo.get('description').value;
-
-      this.photoService.edit(this.id, title, this.oldCategory, newCategory, location, description);
-    } else {
-      this.toastr.error('Invalid form')
-    }
   }
 }

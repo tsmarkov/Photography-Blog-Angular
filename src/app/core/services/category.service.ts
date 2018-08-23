@@ -29,6 +29,18 @@ export class CategoryService {
       .remove();
   }
 
+  getAllCategories() {
+    return firebase.database()
+      .ref('/categories')
+      .once('value')
+      .then((snapshot) => {
+        return snapshot.toJSON();
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  }
+
   // Create unexisting category in db
   private createCategory(categoryName: string): void {
     if (this.isExisting(categoryName)) {

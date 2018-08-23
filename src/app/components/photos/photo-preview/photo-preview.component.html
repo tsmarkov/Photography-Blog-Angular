@@ -2,12 +2,13 @@
   <div class="col-md-1"></div>
   <div class="col-md-8">
     <div id="photo-preview">
-      <img src={{photo.downloadURL}} class="img-fluid" id="photo" alt="Responsive image">
+      <img src={{photo.downloadURL}} class="img-fluid" id="photo"
+        alt="Responsive image">
     </div>
   </div>
   <div class="col-md-3">
     <h3>{{photo.title}}</h3>
-    <p>Author: {{photo.username}}</p>
+    <p>Author: <a [routerLink]="['/user/profile/', photo.userId]">{{photo.username}}</a></p>
     <p>Creation: {{photo.creationDate}}</p>
 
     <div *ngIf="this.photo.description">
@@ -16,7 +17,15 @@
       <p>{{this.photo.description}}</p>
     </div>
 
-    <a [routerLink]="['/photos/edit/', photo.name]" class="btn btn-default">Edit</a>
-    <a href="javascript:void(0)" (click)="deletePhoto()" class="btn btn-danger">Delete</a>
+    <div *ngIf="this.userService.getUserId() === this.photo.userId">
+      <a [routerLink]="['/photos/edit/', photo.name]" class="btn btn-primary">Edit</a>
+      <a href="javascript:void(0)" (click)="deletePhoto()" class="btn
+        btn-danger">Delete</a>
+    </div>
+    <hr>
+    <div>
+      <app-photo-likes [id]="id"></app-photo-likes>
+      <app-photo-comments [id]="id"></app-photo-comments>
+    </div>
   </div>
 </div>

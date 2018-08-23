@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PhotosService } from '../../../core/services/photos.service';
+import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-photo-preview',
@@ -13,7 +15,11 @@ export class PhotoPreviewComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private photoService: PhotosService) { }
+    private photoService: PhotosService,
+    private userService: UserService,
+    private toastr: ToastrService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.route.url.subscribe((params) => {
@@ -25,9 +31,16 @@ export class PhotoPreviewComponent implements OnInit {
   }
 
   deletePhoto() {
-    console.log('In delete');
-
     this.photoService
-      .delete(this.id, this.photo.category, this.photo.userId);
+      .delete(this.id, this.photo.category, this.photo.userId)
+      .then(() => {
+        this.toastr.success('Photo deleted successfully');
+
+        this.router.navigate(['/photos/all'])
+      })
+      .catch(err => {
+        console.error(err);
+        this.toastr.error(err);
+      });
   }
 }

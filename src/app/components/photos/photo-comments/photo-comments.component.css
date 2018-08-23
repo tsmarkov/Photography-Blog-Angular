@@ -1,0 +1,20 @@
+#comment-profile-pic {
+  width: 50%;
+  height: 50%;
+  border-radius: 50px;
+  border: 2px solid black;
+}
+
+.comment-box {
+  background-color: rgb(235, 235, 235);
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.comment-background {
+  background-color: rgb(200, 200, 200);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

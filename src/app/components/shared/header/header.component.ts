@@ -8,8 +8,18 @@ import { UserService } from '../../../core/services/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  isAuthenticated: boolean;
+  userId: string;
+  username: string;
+  profilePicture: string;
 
   constructor(
     private authService: AuthenticationService,
-    private userService: UserService) { }
+    private userService: UserService
+  ) {
+    this.isAuthenticated = this.authService.isAuthenticated();
+    this.userId = this.userService.getUserId();
+    this.username = this.userService.getUsername();
+    this.profilePicture = this.userService.getProfilePicture();
+  }
 }

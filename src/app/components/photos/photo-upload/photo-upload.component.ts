@@ -4,6 +4,7 @@ import { ToastrService } from '../../../../../node_modules/ngx-toastr';
 import { Photo } from '../../../core/models/photo.model';
 import { FormBuilder, FormGroup, Validator, Validators } from '../../../../../node_modules/@angular/forms';
 import categories from '../photo-categories';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-photo-upload',
@@ -12,11 +13,13 @@ import categories from '../photo-categories';
 })
 export class PhotoUploadComponent {
   photoInfo: FormGroup;
+  url;
   categories: string[];
 
   constructor(private photoService: PhotosService,
     private toastr: ToastrService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.photoInfo = this.fb.group({
       'title': [''],
@@ -30,8 +33,9 @@ export class PhotoUploadComponent {
   }
 
   saveImage($event) {
-    let file = <File>$event.target.files[0];
+    this.readUrl($event);
 
+    let file = <File>$event.target.files[0];
     this.photoInfo.get('image').setValue(file);
   }
 
@@ -44,9 +48,28 @@ export class PhotoUploadComponent {
       let category = this.photoInfo.get('category').value;
 
       let uploadPhoto = new Photo(imageFile, title, category, location, description);
-      this.photoService.upload(uploadPhoto);
+      this.photoService.upload(uploadPhoto)
+        .then((photoId) => {
+          this.toastr.success("Photo uploaded successfully");
+          this.router.navigate([`/photos/preview/${photoId}`]);
+        })
+        .catch((err) => {
+          this.toastr.error(err);
+        });
     } else {
       console.error(this.photoInfo);
+    }
+  }
+
+  private readUrl(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = (event: ProgressEvent) => {
+        this.url = (<FileReader>event.target).result;
+      }
+
+      reader.readAsDataURL(event.target.files[0]);
     }
   }
 }

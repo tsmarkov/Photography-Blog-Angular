@@ -1,6 +1,6 @@
 <div *ngIf="this.authService.isAuthenticated();else sign_in_or_up"
   id="home-join">
-  <h1>Wellcome {{this.userService.getUsername()}}!</h1>
+  <h1>Welcome {{this.userService.getUsername()}}!</h1>
 </div>
 <ng-template #sign_in_or_up>
   <div id="home-join">

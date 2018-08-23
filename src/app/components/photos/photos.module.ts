@@ -9,6 +9,8 @@ import { PhotosAllComponent } from './photos-all/photos-all.component';
 import { PhotosRoutingModule } from './photos-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
+import { PhotoLikesComponent } from './photo-likes/photo-likes.component';
+import { PhotoCommentsComponent } from './photo-comments/photo-comments.component';
 
 @NgModule({
   imports: [
@@ -18,6 +20,12 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule,
   ],
-  declarations: [PhotoPreviewComponent, PhotoUploadComponent, PhotoEditComponent, PhotosAllComponent]
+  declarations: [PhotoPreviewComponent,
+    PhotoUploadComponent,
+    PhotoEditComponent,
+    PhotosAllComponent,
+    PhotoLikesComponent,
+    PhotoCommentsComponent
+  ]
 })
 export class PhotosModule { }

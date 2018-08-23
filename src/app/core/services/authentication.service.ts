@@ -18,7 +18,7 @@ export class AuthenticationService {
         return firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((res) => {
                 // Save user data to RealtimeDatabase
-                this.userService.saveUser(res.user.uid, displayName);
+                this.userService.saveUser(res.user.uid, email, displayName, photoURL);
 
                 firebase.auth()
                     .currentUser
@@ -37,10 +37,13 @@ export class AuthenticationService {
             .then(userData => {
                 firebase.auth().currentUser.getIdToken()
                     .then((token: string) => {
-                        sessionStorage.setItem('authToken', token);
-                        sessionStorage.setItem('username', userData.user.displayName);
-                        sessionStorage.setItem('profilePicture', userData.user.photoURL);
-                        sessionStorage.setItem('userId', userData.user.uid);
+                        this.userService
+                            .saveToStorage(
+                                token,
+                                userData.user.displayName,
+                                userData.user.photoURL,
+                                userData.user.uid
+                            );
 
                         this.toastr.success('Signed in successfully');
                         this.router.navigate(['/']);

@@ -6,8 +6,9 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 export const userRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'profile' },
-    { path: 'profile', component: ProfileComponent },
-    { path: 'edit', component: EditProfileComponent },
+    { path: 'profile', pathMatch:'full', redirectTo: `profile/${sessionStorage.getItem('userId')}`},
+    { path: 'profile/:userId', component: ProfileComponent },
+    { path: 'edit/:userId', component: EditProfileComponent },
 ]
 
 @NgModule({

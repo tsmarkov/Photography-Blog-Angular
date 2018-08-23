@@ -1,10 +1,55 @@
-<div class="row user-profile">
+<div class="row">
   <div class="col-md-3"></div>
-  <div class="col-md-6 text-center">
-    <h1><p>{{this.userService.getUsername()}}</p></h1>
+
+  <div *ngIf="this.user != null" class="col-md-6 text-center user-profile">
+    <h1><p>{{this.user.fullName}}</p></h1>
+
     <hr>
-    <img class="mx-auto d-block" src={{this.userService.getProfilePicture()}}
-      alt="Profile picture">
+    <img class="mx-auto d-block" src={{this.user.profilePicture}}
+      alt="Profile picture" id="profile-pic">
+    <hr>
+
+    <div>
+      <p>Email: {{this.user.email}}</p>
+    </div>
+
+    <div *ngIf="this.user.location">
+      <p>Location: {{this.user.location}}</p>
+    </div>
+
+    <div *ngIf="this.user.website">
+      <span>Website: </span>
+      <a href={{this.user.website}} target="_blank" rel="noopener noreferrer">{{this.user.website}}</a>
+    </div>
+
+    <div *ngIf="this.user.bio">
+      <hr>
+      <p>{{this.user.bio}}</p>
+    </div>
+
+    <div *ngIf="this.userService.getUserId() === this.user.userId">
+      <a [routerLink]="['/user/edit/', this.user.userId]" class="btn
+        btn-primary">Edit</a>
+    </div>
   </div>
+
   <div class="col-md-3"></div>
+</div>
+
+<hr>
+
+<div *ngIf="this.photos" class="text-center">
+  <div *ngIf="this.photos.length> 0;else no_photos_yet" class="row">
+    <div
+      *ngFor="let photo of photos;"
+      [routerLink]="['/photos/preview/', photo.photoId]"
+      class="col-sm-3 img-fluid image">
+
+      <img src={{photo.photoURL}} alt="pic" class="img-thumbnail photo">
+
+    </div>
+  </div>
+  <ng-template #no_photos_yet>
+    <p>No photos yet</p>
+  </ng-template>
 </div>
