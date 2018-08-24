@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Url } from 'url';
 import { AuthenticationService } from '../../core/services/authentication.service';
-import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +7,12 @@ import { UserService } from '../../core/services/user.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  constructor(
-    private authService: AuthenticationService,
-    private userService: UserService) { }
+  isAdmin;
+  
+  constructor(private authService: AuthenticationService) {
+    this.authService.isAdmin()
+      .then((res) => {
+        this.isAdmin = res
+      })
+  }
 }

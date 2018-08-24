@@ -7,7 +7,7 @@
         <option *ngFor="let category of categories;let i= index;" [ngValue]="i">{{category}}</option>
       </select>
       <br>
-      <div *ngIf="this.category > -1">
+      <div *ngIf="this.category> -1">
         <h1>{{this.categories[this.category]}}</h1>
       </div>
     </div>
@@ -17,17 +17,22 @@
 
   <div class="album text-muted">
     <div class="row">
-      <div`
-        *ngFor="let photo of photos;"
+      <a *ngFor="let photo of photos;"
         [routerLink]="['/photos/preview/', photo.name]"
         class="col-sm-3 img-fluid image">
-
         <img src={{photo.downloadURL}} alt="pic" class="img-thumbnail">
         <p>{{photo.title}}</p>
         <p>by {{photo.username}}</p>
         <p>{{photo.creationDate}}</p>
-
-      </div>
+      </a>
     </div>
   </div>
+</div>
+
+<div *ngIf="!this.photos" class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <img src="../../../../assets/images/loading.gif" alt="">
+  </div>
+  <div class="col-md-4"></div>
 </div>

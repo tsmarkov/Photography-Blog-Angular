@@ -11,7 +11,7 @@ export class Photo {
     progress: number;
     createdAt: Date;
 
-    constructor(file: File, title: string, category: string, location?: string, description?: string) {
+    constructor(file: File, title: string, category?: string, location?: string, description?: string) {
         this.file = file;
         this.title = title;
         this.location = location;

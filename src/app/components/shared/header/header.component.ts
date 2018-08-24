@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../core/services/authentication.service';
-import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -14,12 +13,11 @@ export class HeaderComponent {
   profilePicture: string;
 
   constructor(
-    private authService: AuthenticationService,
-    private userService: UserService
+    private authService: AuthenticationService
   ) {
     this.isAuthenticated = this.authService.isAuthenticated();
-    this.userId = this.userService.getUserId();
-    this.username = this.userService.getUsername();
-    this.profilePicture = this.userService.getProfilePicture();
+    this.userId = this.authService.getUserId();
+    this.username = this.authService.getUsername();
+    this.profilePicture = this.authService.getProfilePicture();
   }
 }

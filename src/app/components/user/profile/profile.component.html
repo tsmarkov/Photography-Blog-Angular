@@ -1,13 +1,20 @@
 <div class="row">
   <div class="col-md-3"></div>
 
-  <div *ngIf="this.user != null" class="col-md-6 text-center user-profile">
+  <div *ngIf="this.user" class="col-md-6 text-center user-profile">
     <h1><p>{{this.user.fullName}}</p></h1>
 
     <hr>
     <img class="mx-auto d-block" src={{this.user.profilePicture}}
       alt="Profile picture" id="profile-pic">
+
     <hr>
+
+    <h4 *ngIf="user.admin">
+      <span class="badge badge-info">Admin</span>
+      <hr>
+    </h4>
+
 
     <div>
       <p>Email: {{this.user.email}}</p>
@@ -27,9 +34,13 @@
       <p>{{this.user.bio}}</p>
     </div>
 
-    <div *ngIf="this.userService.getUserId() === this.user.userId">
-      <a [routerLink]="['/user/edit/', this.user.userId]" class="btn
-        btn-primary">Edit</a>
+    <div *ngIf="this.user">
+      <a *ngIf="this.authService.isAdmin() ||
+        this.authService.getUserId() === user.userId"
+        [routerLink]="['/user/edit/', this.user.userId]"
+        class="btn btn-primary">
+        Edit
+      </a>
     </div>
   </div>
 

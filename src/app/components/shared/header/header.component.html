@@ -38,13 +38,13 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <a href="javascript:void(0)">
-            <ul class="navbar-nav mr-auto" [routerLink]="['/user/profile/', this.userService.getUserId()]">
+            <ul class="navbar-nav mr-auto" [routerLink]="['/user/profile/', this.authService.getUserId()]">
               <li class="nav-item">
                 <img class="nav-link" id="profile-pic"
-                  src={{this.userService.getProfilePicture()}} alt="profile">
+                  src={{this.authService.getProfilePicture()}} alt="profile">
               </li>
               <li class="nav-item">
-                <a class="nav-link">{{this.userService.getUsername()}}</a>
+                <a class="nav-link">{{this.authService.getUsername()}}</a>
               </li>
             </ul>
           </a>

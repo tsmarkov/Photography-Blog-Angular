@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PhotosService } from '../../../core/services/photos.service';
-import { UserService } from '../../../core/services/user.service';
+import { AuthenticationService } from '../../../core/services/authentication.service';
 
 @Component({
   selector: 'app-photo-likes',
@@ -12,15 +12,15 @@ export class PhotoLikesComponent implements OnInit {
   isLiked: boolean;
   @Input('id') photoId: string;
 
-  constructor(private photoService: PhotosService, private userService: UserService) { }
+  constructor(private photoService: PhotosService, private authService: AuthenticationService) { }
 
   ngOnInit() {
     this.loadLikes();
   }
 
   like() {
-    let userId = this.userService.getUserId();
-    let username = this.userService.getUsername();
+    let userId = this.authService.getUserId();
+    let username = this.authService.getUsername();
 
     this.photoService
       .likePhoto(this.photoId, userId, username)
@@ -31,8 +31,8 @@ export class PhotoLikesComponent implements OnInit {
   }
 
   dislike() {
-    let userId = this.userService.getUserId();
-    let username = this.userService.getUsername();
+    let userId = this.authService.getUserId();
+    let username = this.authService.getUsername();
 
     this.photoService
       .dislikePhoto(this.photoId, userId, username)
@@ -60,7 +60,7 @@ export class PhotoLikesComponent implements OnInit {
           this.likes = Object.values(data);
         }
 
-        let userId = this.userService.getUserId();
+        let userId = this.authService.getUserId();
         if (data.hasOwnProperty(userId)) {
           this.isLiked = true;
         } else {

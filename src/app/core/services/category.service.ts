@@ -1,14 +1,14 @@
 import { Injectable } from "../../../../node_modules/@angular/core";
 import { Photo } from '../models/photo.model'
 import { ToastrService } from "../../../../node_modules/ngx-toastr";
-import { UserService } from "./user.service";
 import * as firebase from 'firebase';
+import { AuthenticationService } from "./authentication.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
-  constructor(private toastr: ToastrService, private userService: UserService) { }
+  constructor(private toastr: ToastrService, private authService: AuthenticationService) { }
 
   // Add photoId to specific category in db 
   addPhotoIdToCategory(photoId: string, categoryName: string): Promise<any> {

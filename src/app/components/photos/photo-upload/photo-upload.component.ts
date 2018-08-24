@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { PhotosService } from '../../../core/services/photos.service';
 import { ToastrService } from '../../../../../node_modules/ngx-toastr';
 import { Photo } from '../../../core/models/photo.model';
-import { FormBuilder, FormGroup, Validator, Validators } from '../../../../../node_modules/@angular/forms';
-import categories from '../photo-categories';
+import { FormBuilder, FormGroup, Validators } from '../../../../../node_modules/@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,7 +13,6 @@ import { Router } from '@angular/router';
 export class PhotoUploadComponent {
   photoInfo: FormGroup;
   url;
-  categories: string[];
 
   constructor(private photoService: PhotosService,
     private toastr: ToastrService,
@@ -22,14 +20,12 @@ export class PhotoUploadComponent {
     private router: Router
   ) {
     this.photoInfo = this.fb.group({
-      'title': [''],
-      'location': [''],
+      'title': ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      'location': ['', [Validators.pattern('^[A-Za-zА-Яа-я ,\.-]+$'), Validators.minLength(2), Validators.maxLength(30)]],
       'description': [''],
-      'category': ['', Validators.required],
+      'category': ['', [Validators.required, Validators.pattern('^[A-Za-zА-Яа-я -]+$'), Validators.minLength(2), Validators.maxLength(20)]],
       'image': [null, Validators.required]
     });
-
-    this.categories = categories;
   }
 
   saveImage($event) {
@@ -41,6 +37,7 @@ export class PhotoUploadComponent {
 
   upload() {
     if (this.photoInfo.valid) {
+      this.toastr.info('Uploading photo...')
       let imageFile = this.photoInfo.get('image').value;
       let title = this.photoInfo.get('title').value;
       let location = this.photoInfo.get('location').value;
@@ -54,10 +51,40 @@ export class PhotoUploadComponent {
           this.router.navigate([`/photos/preview/${photoId}`]);
         })
         .catch((err) => {
-          this.toastr.error(err);
+          this.toastr.error(err.message);
         });
     } else {
-      console.error(this.photoInfo);
+      let photoInfo = this.photoInfo.controls;
+
+      let title = photoInfo.title;
+      let category = photoInfo.category;
+      let location = photoInfo.location;
+
+      if (title.invalid) {
+        if (title.errors.required) {
+          this.toastr.error('Title is required')
+        } else if (title.errors.minlength || title.errors.minlength) {
+          this.toastr.error('Title length must be between 2 and 20 charecters')
+        }
+      }
+
+      if (category.invalid) {
+        if (category.errors.required) {
+          this.toastr.error('Category is required')
+        } else if (category.errors.minlength || category.errors.maxlength) {
+          this.toastr.error('Category length must be between 2 and 20 characters.');
+        } else if (category.errors.pattern) {
+          this.toastr.error('Category can contain only alphabetical characters, dashes and spaces.');
+        }
+      }
+
+      if (location.invalid) {
+        if (location.errors.pattern) {
+          this.toastr.error('Location can contain only alphabetical characters, dashes, spaces, commas and dots.');
+        } else if (location.errors.minlength || location.errors.maxlength) {
+          this.toastr.error('Location length must be between 2 and 30 characters.');
+        }
+      }
     }
   }
 

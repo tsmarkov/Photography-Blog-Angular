@@ -4,3 +4,7 @@ img {
     border: 2px solid rgb(206, 206, 206);
     border-radius: 5px;
 }
+
+.invalid-input-field {
+    border: 1px solid red;
+}

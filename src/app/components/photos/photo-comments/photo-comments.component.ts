@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PhotosService } from '../../../core/services/photos.service';
-import { UserService } from '../../../core/services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from '../../../core/services/authentication.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-photo-comments',
@@ -9,13 +10,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./photo-comments.component.css']
 })
 export class PhotoCommentsComponent implements OnInit {
-  comments;
-  commentForm: FormGroup;
   @Input('id') photoId: string;
+  commentForm: FormGroup;
+  comments;
+  isAdmin: boolean;
 
   constructor(private photoService: PhotosService,
-    private userService: UserService,
-    private fb: FormBuilder
+    private authService: AuthenticationService,
+    private fb: FormBuilder,
+    private toastr: ToastrService
   ) {
     this.commentForm = this.fb.group({
       message: ['', Validators.required]
@@ -24,31 +27,46 @@ export class PhotoCommentsComponent implements OnInit {
 
   ngOnInit() {
     this.loadComments();
+
+    this.authService.isAdmin()
+      .then((res) => {
+        this.isAdmin = res;
+      })
   }
 
   comment() {
-    let userId = this.userService.getUserId();
-    let username = this.userService.getUsername();
-    let profilePicture = this.userService.getProfilePicture();
-    let message = this.commentForm.get('message').value;
+    if (this.commentForm.valid) {
+      let userId = this.authService.getUserId();
+      let username = this.authService.getUsername();
+      let profilePicture = this.authService.getProfilePicture();
+      let message = this.commentForm.get('message').value;
 
-    this.photoService.commentPhoto(this.photoId, userId, profilePicture, username, message)
-      .then(() => {
-        this.loadComments();
-        this.commentForm.reset();
-      })
-      .catch(console.error);
+      this.photoService.commentPhoto(this.photoId, userId, profilePicture, username, message)
+        .then(() => {
+          this.loadComments();
+          this.commentForm.reset();
+        })
+        .catch((err) => this.toastr.error(err));
+    } else {
+      this.toastr.error('Write the comment first');
+    }
   }
 
-  removeComment(commentId: string) {
-    let userId = this.userService.getUserId();
-    let username = this.userService.getUsername();
+  removeComment(comment) {
+    let commentId = comment.commentId;
+    if (this.authService.getUserId() === comment.userId ||
+      this.authService.isAdmin()) {
+      let userId = this.authService.getUserId();
+      let username = this.authService.getUsername();
 
-    this.photoService.removeComment(this.photoId, commentId)
-      .then(() => {
-        this.loadComments();
-      })
-      .catch(console.error)
+      this.photoService.removeComment(this.photoId, commentId)
+        .then(() => {
+          this.loadComments();
+        })
+        .catch(console.error)
+    } else {
+      console.info("Can not delete comment: permission denied")
+    }
   }
 
   private loadComments() {
@@ -59,8 +77,22 @@ export class PhotoCommentsComponent implements OnInit {
           this.comments = [];
         } else {
           this.comments = Object.values(res).reverse();
+          this.loadProfilePics();
         }
       })
       .catch(console.error);
+  }
+
+  private async loadProfilePics() {
+    for (const comment of this.comments) {
+      await this.authService.getProfilePictureByUserId(comment.userId)
+        .then((res) => {
+          if (res) {
+            comment.profilePicture = res;
+          } else {
+            comment.profilePicture = '../../../../assets/images/not_found.jpg';
+          }
+        });
+    }
   }
 }

@@ -4,16 +4,22 @@
   <div class="form-group row">
     <label for="email" class="col-sm-2 col-form-label">Email</label>
     <div class="col-sm-10">
-      <input formControlName="email" type="email" class="form-control"
-        id="email" placeholder="Email">
+      <input formControlName="email" type="email"
+        id="email" placeholder="Email"
+        [class]="this.user.get('email').valid ||
+        !this.user.get('email').touched?
+        'form-control' : 'form-control invalid-input-field'">
     </div>
   </div>
 
   <div class="form-group row">
     <label for="password" class="col-sm-2 col-form-label">Password</label>
     <div class="col-sm-10">
-      <input formControlName="password" type="password" class="form-control"
-        id="password" placeholder="Password">
+      <input formControlName="password" type="password"
+        id="password" placeholder="Password"
+        [class]="this.user.get('password').valid ||
+        !this.user.get('password').touched?
+        'form-control' : 'form-control invalid-input-field'">
     </div>
   </div>
 

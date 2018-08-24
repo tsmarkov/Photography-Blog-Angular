@@ -1,9 +1,35 @@
 .dropzone {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    border-radius: 5px;
-    background: white;
-    margin: 10px 0;
+  display: block;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+  cursor: pointer;
+  /* Style as you please, it will become the visible UI component. */
+}
+
+#upload-photo {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+#image-upload-area {
+  background-color: rgb(238, 238, 238);
+  border-radius: 30px;
+  padding: 100px;
+  margin: 20px;
+}
+
+.upload-form {
+  padding-top: 50px;
+  padding-bottom: 150px;
+  height: 100%;
+  width: 100%;
+}
+
+.invalid-input-field {
+  border: 1px solid red;
 }

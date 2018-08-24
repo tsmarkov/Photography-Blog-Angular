@@ -8,7 +8,7 @@ import { AuthenticationGuard } from './core/guards/authentication.guard';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'auth', loadChildren: './components/authentication/authentication.module#AuthenticationModule' },
-  { path: 'user', loadChildren: './components/user/user.module#UserModule', canActivate: [AuthenticationGuard] },
+  { path: 'user', loadChildren: './components/user/user.module#UserModule' },
   { path: 'photos', loadChildren: './components/photos/photos.module#PhotosModule' },
   { path: '**', component: NotFoundComponent }
 ]

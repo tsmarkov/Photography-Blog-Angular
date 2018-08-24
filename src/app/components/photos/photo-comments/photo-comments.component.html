@@ -1,36 +1,40 @@
-<div class="container">
+<div class="cmnt">
   <div class="row">
-    <form [formGroup]="commentForm" (ngSubmit)="comment()">
-      <textarea formControlName="message" placeholder="Write a comment ..."></textarea>
-      <br>
-      <button type="submit" class="btn btn-success green">Share</button>
-    </form>
-  </div>
-</div>
-
-<div class="container comment-box">
-
-  <div class="row">
-    <h5>Comments</h5>
-  </div>
-
-  <hr>
-
-  <div *ngIf="this.comments && this.comments.length === 0">
-    <p>No comments yet ...</p>
-  </div>
-
-  <div *ngFor="let comment of this.comments" class="row comment-background">
-    <div class="col-md-4">
-      <img src={{comment.profilePicture}} alt="profile pic" class="img-fluid">
-      <a [routerLink]="['/user/profile/', comment.userId]">{{comment.username}}</a>
+    <div class="col-md-1"></div>
+    <div class="col-md-8" style="margin: 10px;">
+      <form [formGroup]="commentForm" (ngSubmit)="comment()">
+        <textarea formControlName="message" class="form-control" placeholder="Write a comment ..."></textarea>
+        <br>
+        <button type="submit" class="btn btn-success green">Share</button>
+      </form>
     </div>
-    <div class="col-md-4">
-      <p>{{comment.message}}</p>
-    </div>
-    <p>Created on: {{comment.creationDate}}</p>
-    <button *ngIf="userService.getUserId() === comment.userId"
-      (click)="removeComment(comment.commentId)">Delete</button>
   </div>
 
+  <div class="container comment-box">
+
+    <div class="row">
+      <h5>Comments</h5>
+    </div>
+
+    <hr>
+
+    <div *ngIf="this.comments && this.comments.length === 0">
+      <p>No comments yet ...</p>
+    </div>
+
+    <div *ngFor="let comment of this.comments" class="row comment-background">
+      <div class="col-md-4" [routerLink]="['/user/profile/', comment.userId]"
+        style="cursor: pointer">
+        <img src={{comment.profilePicture}} alt="profile pic" class="img-fluid">
+      </div>
+      <div class="col-md-4">
+        <p>{{comment.message}}</p>
+      </div>
+      <p>Created on: {{comment.creationDate}}</p>
+      <button *ngIf="(authService.getUserId() === comment.userId) ||
+        (this.isAdmin)"
+        (click)="removeComment(comment)">Delete</button>
+    </div>
+
+  </div>
 </div>

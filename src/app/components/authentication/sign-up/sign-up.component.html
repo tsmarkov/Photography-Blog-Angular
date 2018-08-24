@@ -4,16 +4,21 @@
   <div class="form-group row">
     <label for="email" class="col-sm-2 col-form-label">Email</label>
     <div class="col-sm-10">
-      <input formControlName="email" type="email" class="form-control"
-        id="email" placeholder="Email">
+      <input formControlName="email" type="email"
+        id="email" placeholder="Email"
+        [class]="this.user.get('email').valid ||
+        !this.user.get('email').touched?
+        'form-control' : 'form-control invalid-input-field'">
     </div>
   </div>
 
   <div class="form-group row">
     <label for="password" class="col-sm-2 col-form-label">Password</label>
     <div class="col-sm-10">
-      <input formControlName="password" type="password" class="form-control"
-        id="password" placeholder="Password">
+      <input formControlName="password" type="password"
+        [class]="this.user.get('password').valid ||
+        !this.user.get('password').touched?
+        'form-control' : 'form-control invalid-input-field'">
     </div>
   </div>
 
@@ -22,8 +27,7 @@
       Password</label>
     <div class="col-sm-10">
       <input formControlName="confirmPassword" type="password"
-        class="form-control" id="confirmPassword"
-        placeholder="Confirm Password">
+        class="form-control">
     </div>
   </div>
 
@@ -31,29 +35,12 @@
     <label for="displayName" class="col-sm-2 col-form-label">Full Name</label>
     <div class="col-sm-10">
       <input formControlName="displayName"
-        type="text"
-        class="form-control"
-        id="displayName"
-        placeholder="Full Name">
+        type="text" id="displayName" placeholder="Full Name"
+        [class]="this.user.get('displayName').valid ||
+        !this.user.get('displayName').touched?
+        'form-control' : 'form-control invalid-input-field'">
     </div>
   </div>
-
-  <!-- <div class="form-group row">
-    <label for="profilePicture" class="col-sm-2 col-form-label">Profile picture (URL)</label>
-    <div class="col-sm-10">
-      <input formControlName="profilePictureURL"
-        type="url"
-        class="form-control"
-        id="profilePicture"
-        placeholder="Profile picture (URL)">
-    </div>
-  </div>
-
-  <div class="form-group row">
-    <div class="offset-sm-2 col-sm-12">
-      <img [src]="user.get('profilePictureURL').value" alt="Profile picture">
-    </div>
-  </div>  -->
 
   <div class="form-group row">
     <div class="offset-sm-2 col-sm-10">

@@ -18,3 +18,10 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+
+.cmnt {
+  background-color: rgb(212, 212, 212); 
+  padding: 20px;
+  border-radius: 20px; 
+}

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PhotosService } from '../../../core/services/photos.service';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from '../../../core/services/user.service';
+import { AuthenticationService } from '../../../core/services/authentication.service';
 
 @Component({
   selector: 'app-photo-preview',
@@ -12,16 +12,22 @@ import { UserService } from '../../../core/services/user.service';
 export class PhotoPreviewComponent implements OnInit {
   id: string;
   photo;
+  isAdmin: boolean;
 
   constructor(
+    private authService: AuthenticationService,
     private route: ActivatedRoute,
     private photoService: PhotosService,
-    private userService: UserService,
     private toastr: ToastrService,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.authService.isAdmin()
+      .then((res) => {
+        this.isAdmin = res;
+      })
+
     this.route.url.subscribe((params) => {
       this.id = params[1].path;
 

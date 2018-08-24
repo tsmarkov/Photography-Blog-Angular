@@ -64,6 +64,10 @@ export class PhotosAllComponent implements OnInit {
   loadAllCategories() {
     this.categoryService.getAllCategories()
       .then((res: Object) => {
+        if (res == null) {
+          res = [];
+        }
+
         let keys = Object.keys(res);
         this.categories = keys;
       })
