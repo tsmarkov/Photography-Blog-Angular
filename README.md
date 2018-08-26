@@ -16,13 +16,31 @@ Admins can edit and delete all users photos, edit and delete users profiles and 
 
 ## Functionality
 #### • User authentication
-    * Sign in existing user with email and password. 
-    * Sign up new user with email, full name and password. 
-    * Sign out from the application. 
+    ◦ Sign in existing user with email and password
+    ◦ Sign up new user with email, full name and password
+    ◦ Sign out from the application
 #### • User profile
-    - Upload new profile picture. 
-    - Change full name.
-    - Add or edit optional properties. 
-    - Delete profile. 
+    ◦ Upload new profile picture
+    ◦ Edit full name
+    ◦ Add or edit optional properties
+    ◦ Delete profile
 #### • Home
-    - Slideshow of the most recently added photos. 
+    ◦ Slideshow of the most recently added photos
+#### • Photos
+    ◦ Preview
+    ◦ Category filter
+    ◦ Upload
+    ◦ Delete
+    ◦ Edit information
+    ◦ Like
+        - unlike
+    ◦ Comment
+        - write
+        - delete
+        
+## Setting up the project
+
+1.
+```
+git clone "https://github.com/tsmarkov/Photography-Blog-Angular.git"
+```
