@@ -38,9 +38,31 @@ Admins can edit and delete all users photos, edit and delete users profiles and 
         - write
         - delete
         
-## Setting up the project
+## Starting the project
+##### • Download the project
+```
+◦ git clone "https://github.com/tsmarkov/Photography-Blog-Angular.git"
+```
 
-1.
-```
-git clone "https://github.com/tsmarkov/Photography-Blog-Angular.git"
-```
+##### • Setting up dependencies
+    ◦ Open "Photography-Blog-Angular" folder
+    ◦ npm install -E
+    
+##### • Setting up Firebase
+    ◦ Create file "firebase.config.ts" in base folder
+    ◦ Add new project in [Firebase](https://console.firebase.google.com/)
+    ◦ Copy your automaticly generated "Web Setup" configs and place it in "firebase.config.ts" coresponding properties
+    ```
+      export const firebaseConfig = {
+          apiKey: "put-your-apiKey-here",
+          authDomain: "your-authDomain-here",
+          databaseURL: "put-your-databaseURL-here",
+          projectId: "put-your-projectId-here",
+          storageBucket: "put-your-storageBucket-here",
+          messagingSenderId: "put-your-messagingSenderId-here"}
+    ```
+    
+
+##### • Run it
+    ◦ ng serve --open
+    ◦ Starts on [localhost:4200](localhost:4200)
