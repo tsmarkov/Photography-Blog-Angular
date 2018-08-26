@@ -16,19 +16,17 @@ Also can view other users profiles and their uploaded photos.
 Admins can edit and delete all users photos, edit and delete users profiles and give users administrator privileges.
 
 Functionality
-• User authentication
 
+• User authentication
 - o Sign in existing user with email and password. 
 - o Sign up new user with email, full name and password. 
 - o Sign out from the application. 
 
 • User profile
-
 - o Upload new profile picture. 
 - o Change full name. 
 - o Add or edit optional properties. 
 - o Delete profile. 
 
 • Home
-
 - o Slideshow of the most recently added photos. 
