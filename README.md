@@ -1,7 +1,7 @@
 # Photography-Blog-Angular
 "Angular Fundamentals - July 2018" Project Defense
 
-*github: https://github.com/tsmarkov/Photography-Blog-Angular
+*github: https://github.com/tsmarkov/Photography-Blog-Angular*
 
 ## Project Specification
 
@@ -12,7 +12,7 @@ Photography blog have users, photographies and photographies info. Each user can
 Every user can preview all photographies in the gallery and filtering them by category. 
 Authenticated users can view photographies and their details. Can like and comment all photos. Upload, edit and delete own. 
 Also can view other users profiles and their uploaded photos.
-Admins can edit and delete all users photos, edit and delete users profiles and give users administrator privileges.
+Admins can edit and delete all users photos, edit and delete users profiles and give users administrator privileges.**
 
 ## Functionality
 #### • User authentication
