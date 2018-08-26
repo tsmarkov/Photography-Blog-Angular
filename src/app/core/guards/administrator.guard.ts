@@ -15,26 +15,11 @@ export class AdministratorGuard implements CanActivate {
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): boolean {
-    let canActivate = this.check() ? true : false;
-    return canActivate;
+    state: RouterStateSnapshot): Promise<boolean> {
+
+    return this.authService.isAdmin();
   }
 
   check() {
-    if (this.authService)
-      this.authService.isAdmin()
-        .then((res) => {
-          if (res.admin) {
-            console.log('admin true');
-            return true;
-          } else {
-            console.log('admin false');
-            this.router.navigate(['/auth/signin'])
-            return false;
-          }
-        }).catch((err) => {
-          console.error(err);
-          return false;
-        });
   }
 }

@@ -7,6 +7,47 @@ img {
   margin-top: 20px;
   padding-top: 50px;
   padding-bottom: 50px;
-  background-color: rgba(220, 220, 220, 0.5);
+  background-color: rgb(235, 235, 235);
   border-radius: 20px;
+}
+
+.recent-photos {
+  padding: 20px;
+}
+
+/*   START SLIDER CSS */
+
+#slideshow {
+  /* margin: 80px auto; */
+  position: relative;
+  width: 800;
+  height: 800px;
+  /* padding: 10px; */
+  /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); */
+}
+
+#slideshow>div {
+  position: absolute;
+}
+
+/* \\ END SLIDER CSS*/
+
+.cotainer {
+  position: relative;
+  text-align: center;
+}
+
+/* Centered text */
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.548);
+  color: white;
+  padding: 30px;
+  font-size: 60px;
+  border-radius: 20px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }

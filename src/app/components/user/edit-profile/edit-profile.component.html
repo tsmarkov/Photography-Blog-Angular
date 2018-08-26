@@ -3,94 +3,101 @@
 
   <div *ngIf="this.userData != null" class="col-md-6 text-center user-profile">
     <h1>Edit profile</h1>
-
+    <hr>
     <p>Email: {{this.userData.email}}</p>
 
 
-    <div>
-
-      <div *ngIf="this.url">
-        <label for="upload-profile">
-          <img [src]="url">
-          <input type="file" (change)="saveImage($event)" id="upload-photo"
-            hidden/>
-        </label>
+    <div *ngIf="this.url;else no_photo" class="container">
+      <div class="row">
+        <div class="col-11">
+          <div class="text-center">
+            <label for="upload-profile">
+              <img [src]="url" class="img-fluid img-responsive img-thumbnail">
+              <input type="file" (change)="saveImage($event)"
+                id="upload-profile"
+                hidden/>
+            </label>
+          </div>
+        </div>
       </div>
-      <div *ngIf="!this.url">
-        <input type="file" (change)="saveImage($event)">
-      </div>
-
     </div>
 
-    <div *ngIf="this.userForm.get('profilePicture').value;">
-      <h1>Ima picture</h1>
-    </div>
+    <ng-template #no_photo>
+      <input type="file" (change)="saveImage($event)">
+    </ng-template>
 
     <form [formGroup]="userForm" (ngSubmit)="edit()">
 
       <div class="form-group row">
-        <label for="category" class="col-sm-2 col-form-label">Full Name</label>
-        <br>
-        <div class="col-sm-10">
+        <label for="category" class="col-sm-12 col-form-label">Full Name</label>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
           <input formControlName="fullName" type="text"
             id="fullName" placeholder="Full Name"
             [class]="this.userForm.get('fullName').valid ||
             !this.userForm.get('fullName').touched?
             'form-control' : 'form-control invalid-input-field'">
         </div>
+        <div class="col-sm-3"></div>
       </div>
 
       <div class="form-group row">
-        <label for="category" class="col-sm-2 col-form-label">Location</label>
-        <br>
-        <div class="col-sm-10">
+        <label for="category" class="col-sm-12 col-form-label">Location</label>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
           <input formControlName="location" type="text"
             id="location" placeholder="Location"
             [class]="this.userForm.get('location').valid ||
             !this.userForm.get('location').touched?
             'form-control' : 'form-control invalid-input-field'">
         </div>
+        <div class="col-sm-3"></div>
       </div>
 
       <div class="form-group row">
-        <label for="category" class="col-sm-2 col-form-label">Website</label>
-        <div class="col-sm-10">
-          <input formControlName="website" type="url"
+        <label for="website" class="col-sm-12 col-form-label">Website</label>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+          <input formControlName="website" type="text"
             id="website" placeholder="Website"
             [class]="this.userForm.get('website').valid ||
             !this.userForm.get('website').touched?
             'form-control' : 'form-control invalid-input-field'">
         </div>
+        <div class="col-sm-3"></div>
       </div>
 
-      <div class="form-group row">
-        <label for="category" class="col-sm-2 col-form-label">Bio</label>
-        <div class="col-sm-10">
+      <div class="form-group row ">
+        <label for="category" class="col-sm-12 col-form-label">Bio</label>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
           <textarea formControlName="bio" type="text"
             id="bio" placeholder="Bio"
             [class]="this.userForm.get('bio').valid ||
             !this.userForm.get('bio').touched?
             'form-control' : 'form-control invalid-input-field'"></textarea>
         </div>
+        <div class="col-sm-3"></div>
       </div>
 
       <button type="submit" class="btn btn-primary">Submits</button>
 
     </form>
-
-
     <br>
     <div *ngIf="(this.authService.getUserId() === userData.userId) ||
       (this.isAdmin)">
+      <a [routerLink]="['/user/delete/', userData.userId]"
+        class="btn btn-danger">
+        Delete
+      </a>
 
       <div *ngIf="this.isAdmin">
+        <br>
         <button *ngIf="this.userData.admin === true" class="btn
-          btn-outline-info"
+          btn-warning"
           (click)="disableAdminRole()">
           Disable admin
         </button>
-
-        <br>
 
         <button *ngIf="this.userData.admin === false"
           class="btn btn-info"
@@ -98,16 +105,16 @@
           Make admin
         </button>
       </div>
-
-      <br>
-      <a
-        [routerLink]="['/user/delete/', userData.userId]"
-        class="btn btn-danger">
-        Delete
-      </a>
-
     </div>
   </div>
 
   <div class="col-md-3"></div>
+</div>
+
+<div class="row" *ngIf="!this.userData">
+  <div class="col-md-3"></div>
+  <div class="col-md-8">
+    <img src="../../../../assets/images/loading.gif" alt="Loading...">
+  </div>
+  <div class="col-md-1"></div>
 </div>

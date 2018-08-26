@@ -1,6 +1,6 @@
 hr {
     display: block;
-    background-color: rgba(193, 193, 193, 0.524);
+    /* background-color: rgba(193, 193, 193, 0.524); */
 }
 
 #or {
@@ -11,4 +11,10 @@ hr {
     width: 40px;
     height: 40px;
     border-radius: 50%; 
+}
+
+#navig {
+    /* background-color: rgba(185, 136, 0, 0.5); */
+    background-color: rgba(255, 255, 255, 0.5);
+    /* color: rgb(0, 0, 0); */
 }

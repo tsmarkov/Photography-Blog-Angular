@@ -1,5 +1,12 @@
-<div class="dropzone">
+<div *ngIf="this.url" class="row text-center">
+  <div class="col-12">
+    <h1>Upload photo</h1>
+    <hr>
+  </div>
+</div>
 
+
+<div class="dropzone">
   <div *ngIf="!this.url" class="row" id="image-upload-area">
     <div class="col-xl-2"></div>
 
@@ -11,23 +18,21 @@
     </div>
   </div>
 
-  <div class="row upload-form">
+  <div *ngIf="this.url" class="row upload-form">
 
-    <div *ngIf="this.url" class="col-xl-6">
+    <div *ngIf="this.url" class="col-xl-8">
       <label for="upload-photo">
-        <img [src]="url" alt="upload photo" class="img-fluid">
+        <img [src]="url" alt="upload photo" class="img-fluid img-thumbnail">
       </label>
       <input type="file" name="photo" id="upload-photo"
         (change)="saveImage($event)" />
     </div>
 
-    <div class="col-md-2"></div>
-
     <div *ngIf="this.photoInfo.get('image').value;" class="col-xl-4">
-      <form [formGroup]="photoInfo" (ngSubmit)="upload()">
+      <form [formGroup]="photoInfo" (ngSubmit)="upload()" class="text-center">
 
         <div class="form-group row">
-          <div class="col-sm-10">
+          <div class="col-sm-12">
             <input formControlName="title" type="text"
               id="title" placeholder="Title"
               [class]="this.photoInfo.get('title').valid ||
@@ -37,7 +42,7 @@
         </div>
 
         <div class="form-group row">
-          <div class="col-sm-10">
+          <div class="col-sm-12">
             <input formControlName="category" type="text"
               id="category" placeholder="Category"
               [class]="this.photoInfo.get('category').valid ||
@@ -47,7 +52,7 @@
         </div>
 
         <div class="form-group row">
-          <div class="col-sm-10">
+          <div class="col-sm-12">
             <input formControlName="location" type="text"
               id="location" placeholder="Location"
               [class]="this.photoInfo.get('location').valid ||
@@ -57,14 +62,17 @@
         </div>
 
         <div class="form-group row">
-          <div class="col-sm-10">
+          <div class="col-sm-12">
             <textarea formControlName="description" placeholder="Description"
-              class="form-control"></textarea>
+              [class]="this.photoInfo.get('description').valid ||
+              !this.photoInfo.get('description').touched?
+              'form-control' : 'form-control invalid-input-field'">
+            </textarea>
           </div>
         </div>
 
         <div class="form-group row">
-          <div class="offset-sm-2 col-sm-10">
+          <div class="offset-sm-2 col-sm-12">
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
         </div>

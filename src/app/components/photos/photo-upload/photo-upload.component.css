@@ -17,9 +17,11 @@ label {
 }
 
 #image-upload-area {
-  background-color: rgb(238, 238, 238);
-  border-radius: 30px;
-  padding: 100px;
+  /* background-color: rgb(238, 238, 238); */
+  background-color: rgb(235, 235, 235);
+  color: #0162AD;
+  border-radius: 50px;
+  padding: 200px;
   margin: 20px;
 }
 
@@ -28,6 +30,8 @@ label {
   padding-bottom: 150px;
   height: 100%;
   width: 100%;
+  background-color: rgb(235, 235, 235);
+  border-radius: 20px;
 }
 
 .invalid-input-field {

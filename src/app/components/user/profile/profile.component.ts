@@ -11,6 +11,7 @@ import { PhotosService } from '../../../core/services/photos.service';
 export class ProfileComponent implements OnInit {
   user;
   photos;
+  isAdmin;
 
   constructor(
     private authService: AuthenticationService,
@@ -32,6 +33,11 @@ export class ProfileComponent implements OnInit {
       })
       .catch((err) => {
         console.error(err);
+      })
+
+    this.authService.isAdmin()
+      .then((res) => {
+        this.isAdmin = res;
       })
   }
 

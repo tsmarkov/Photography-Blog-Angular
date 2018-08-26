@@ -4,11 +4,15 @@ import { RouterModule } from '@angular/router';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import * as firebase from 'firebase';
+import { UserRoutingModule } from '../user/user-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    CommonModule,
+    UserRoutingModule
   ],
   declarations: [HeaderComponent, FooterComponent],
   exports: [HeaderComponent, FooterComponent]

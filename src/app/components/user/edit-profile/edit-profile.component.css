@@ -17,3 +17,10 @@ label {
 img {
   margin: 20px;
 }
+
+.user-profile {
+  background-color: rgb(235, 235, 235);
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+}

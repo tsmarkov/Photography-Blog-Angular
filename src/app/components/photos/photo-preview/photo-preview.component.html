@@ -1,42 +1,68 @@
-<div *ngIf="this.photo" class="row">
-  <div class="col-md-8">
-    <div id="photo-preview">
-      <img src={{photo.downloadURL}} class="img-fluid" id="photo"
-        alt="Responsive image">
-    </div>
-  </div>
-  <div class="col-md-4">
-    <h3>{{photo.title}}</h3>
-    <p>Author: <a [routerLink]="['/user/profile/', photo.userId]">{{photo.username}}</a></p>
-    <p>Location: {{photo.location}}</p>
-    <p>Category: {{photo.category}}</p>
-    <p>fom: <i>{{photo.creationDate}}</i></p>
+<div class="container">
+  <div *ngIf="this.photo" class="row">
 
-    <div *ngIf="this.photo.description">
-      <p>Description:</p>
-      <p><i>{{this.photo.description}}</i></p>
+    <div class="col-xl-8 photo-block">
+      <div id="photo-preview">
+        <a href={{photo.downloadURL}}>
+          <img src={{photo.downloadURL}} class="img-fluid img-thumbnail"
+            id="photo"
+            alt="Photography">
+        </a>
+      </div>
+    </div>
+
+    <div class="col-xl-4 photo-info">
+      <h3>{{photo.title}}</h3>
+      <p><i>Author</i>: <a [routerLink]="['/users/profile/', photo.userId]">{{photo.username}}</a></p>
+      <p><i>Location</i>: {{photo.location}}</p>
+      <p><i>Category</i>: {{photo.category}}</p>
+      <p><i>fom: {{photo.creationDate}}</i></p>
+
+      <div *ngIf="this.photo.description">
+        <p><i>Description</i>: {{this.photo.description}}</p>
+        <hr>
+      </div>
+
+      <div *ngIf="(this.authService.getUserId() === this.photo.userId) ||
+        (this.isAdmin)">
+        <div id="control-buttons"
+          class="row text-center">
+          <div class="col-md-6 text-center">
+            <a [routerLink]="['/photos/edit', photo.name]"
+              class="btn btn-primary center">
+              Edit
+            </a>
+          </div>
+          <div class="col-md-6 center">
+            <a href="javascript:void(0)" (click)="deletePhoto()"
+              class="btn btn-danger text-center">
+              Delete
+            </a>
+          </div>
+        </div>
+        <hr>
+      </div>
+
+      <div id=likes class="row text-center">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <app-photo-likes [id]="id"></app-photo-likes>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
       <hr>
+      <div id="comments" class="row center-form cmnt">
+        <app-photo-comments [id]="id"></app-photo-comments>
+      </div>
     </div>
 
-    <div *ngIf="(this.authService.getUserId() === this.photo.userId) ||
-      (this.isAdmin)">
-      <a [routerLink]="['/photos/edit/', photo.name]" class="btn btn-primary">Edit</a>
-      <a href="javascript:void(0)" (click)="deletePhoto()" class="btn
-        btn-danger">Delete</a>
-    </div>
-    <hr>
-    <div>
-      <app-photo-likes [id]="id"></app-photo-likes>
-      <app-photo-comments [id]="id"></app-photo-comments>
-    </div>
   </div>
-</div>
 
-<div *ngIf="!this.photos" class="row">
-  <div class="col-md-4"></div>
-  <div class="col-md-4">
-    <div *ngIf="!this.photo" class="row">
-      <img src="../../../../assets/images/loading.gif" alt="">
+  <div class="row" *ngIf="!this.photo">
+    <div class="col-md-3"></div>
+    <div class="col-md-8">
+      <img src="../../../../assets/images/loading.gif" alt="Loading...">
     </div>
+    <div class="col-md-1"></div>
   </div>
 </div>

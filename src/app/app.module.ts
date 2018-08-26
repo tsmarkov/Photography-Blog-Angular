@@ -11,14 +11,13 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RouterModule } from '../../node_modules/@angular/router';
-import { WelcomeComponent } from './components/welcome/welcome.component';
+import { UserModule } from './components/user/user.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NotFoundComponent,
-    WelcomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +25,8 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

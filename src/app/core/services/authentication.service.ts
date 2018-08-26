@@ -87,12 +87,12 @@ export class AuthenticationService {
             });
     }
 
-    updateUser(title: string, profilePicture: string, location: string, website: string, bio: string) {
+    updateUser(fullName: string, profilePicture: string, location: string, website: string, bio: string) {
         return new Promise((resolve, reject) => {
             firebase.database()
                 .ref(`/users/${this.getUserId()}`)
                 .update({
-                    title,
+                    fullName,
                     profilePicture,
                     location,
                     website,
@@ -111,7 +111,12 @@ export class AuthenticationService {
 
         if (userId === user.uid) {
             return user.delete()
-                .then(() => this.deleteUserInfoFromDatabase(userId))
+                .then(() => {
+                    return this.deleteUserInfoFromDatabase(userId)
+                })
+                .catch((err) => {
+                    console.log(err.message)
+                })
         } else if (this.isAdmin()) {
             return this.deleteUserInfoFromDatabase(userId)
         } else {
@@ -144,6 +149,15 @@ export class AuthenticationService {
 
     // GET USER DATA
 
+    getUsernameByUserId(userId: string) {
+        return firebase.database()
+            .ref(`users/${userId}/fullName`)
+            .once('value')
+            .then((snapshot) => {
+                return snapshot.val();
+            })
+    }
+
     getUsername(): string {
         return sessionStorage.getItem('username');
     }
@@ -168,6 +182,12 @@ export class AuthenticationService {
             })
     }
 
+    getAllUsers() {
+        return firebase.database()
+            .ref(`users`)
+            .once(`value`)
+    }
+
     getProfilePictureByUserId(userId: string) {
         return firebase.database()
             .ref(`/users/${userId}/profilePicture`)
@@ -181,14 +201,19 @@ export class AuthenticationService {
     }
 
     isAdmin(): Promise<any> {
-        let userId = this.getUserId();
+        if (!firebase.auth().currentUser) {
+            return;
+        } else {
 
-        return firebase.database()
-            .ref(`/users/${userId}/admin`)
-            .once('value')
-            .then((snapshot) => {
-                return snapshot.val();
-            })
+            let userId = this.getUserId();
+
+            return firebase.database()
+                .ref(`/users/${userId}/admin`)
+                .once('value')
+                .then((snapshot) => {
+                    return snapshot.val();
+                })
+        }
     }
 
     makeAdmin(userId: string) {

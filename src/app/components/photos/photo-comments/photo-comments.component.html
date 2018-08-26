@@ -1,40 +1,66 @@
-<div class="cmnt">
+<div class="row">
   <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-8" style="margin: 10px;">
-      <form [formGroup]="commentForm" (ngSubmit)="comment()">
-        <textarea formControlName="message" class="form-control" placeholder="Write a comment ..."></textarea>
-        <br>
-        <button type="submit" class="btn btn-success green">Share</button>
-      </form>
+    <div class="col-md-12">
+      <h4>Comments</h4>
+      <hr>
     </div>
   </div>
 
-  <div class="container comment-box">
+  <form [formGroup]="commentForm" class="row center-form"
+    (ngSubmit)="comment()">
+    <div class="col-md-12">
+      <textarea formControlName="message"
+        placeholder="Write a comment ..."
+        [class]="this.commentForm.get('message').errors &&
+        this.commentForm.get('message').errors.pattern?
+        'form-control invalid-input-field' : 'form-control'">
+      </textarea>
+      <button type="submit" class="btn btn-success green">Share</button>
+    </div>
+  </form>
+
+  <div *ngIf="this.comments && this.comments.length === 0"
+    class="row comment-box center-form">
+    <div class="col-md-12">
+      <!-- <div class="col-md-12"> -->
+      <p>No comments yet ...</p>
+      <!-- </div> -->
+    </div>
+  </div>
+
+  <div *ngFor="let comment of this.comments" class="row comment-background">
+    <div class="row">
+      <div class="col-sm-12" [routerLink]="['/users/profile/', comment.userId]"
+        style="cursor: pointer">
+        <img src={{comment.profilePicture}} alt="profile pic"
+          id="comment-profile-pic"
+          class="">
+        by
+        <a [routerLink]="['/users/profile/', comment.userId]">{{this.comment.username}}</a>
+      </div>
+    </div>
 
     <div class="row">
-      <h5>Comments</h5>
-    </div>
-
-    <hr>
-
-    <div *ngIf="this.comments && this.comments.length === 0">
-      <p>No comments yet ...</p>
-    </div>
-
-    <div *ngFor="let comment of this.comments" class="row comment-background">
-      <div class="col-md-4" [routerLink]="['/user/profile/', comment.userId]"
-        style="cursor: pointer">
-        <img src={{comment.profilePicture}} alt="profile pic" class="img-fluid">
+      <div class="col-md-12">
+        <p class="font-weight-bold">{{comment.message}}</p>
       </div>
-      <div class="col-md-4">
-        <p>{{comment.message}}</p>
-      </div>
-      <p>Created on: {{comment.creationDate}}</p>
-      <button *ngIf="(authService.getUserId() === comment.userId) ||
-        (this.isAdmin)"
-        (click)="removeComment(comment)">Delete</button>
     </div>
 
+    <div class="row">
+      <div class="col-md-12">
+        <p class="font-weight-light font-italic">
+          Created on: {{comment.creationDate}}</p>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="(authService.getUserId() === comment.userId) ||
+      (this.isAdmin)">
+      <div class="col-md-12 center">
+        <button (click)="removeComment(comment)"
+          class="btn btn-outline-danger btn-sm">
+          Delete
+        </button>
+      </div>
+    </div>
   </div>
 </div>

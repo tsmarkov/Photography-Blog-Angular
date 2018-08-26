@@ -2,14 +2,15 @@
   <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-      <select [(ngModel)]="category" (change)="changeCategory()">
+      <select [(ngModel)]="category" (change)="changeCategory()" class="form-control">
         <option [ngValue]="-1" selected>All</option>
         <option *ngFor="let category of categories;let i= index;" [ngValue]="i">{{category}}</option>
       </select>
       <br>
-      <div *ngIf="this.category> -1">
+      <div *ngIf="this.category> -1" class="text-center">
         <h1>{{this.categories[this.category]}}</h1>
       </div>
+      <br>
     </div>
     <div class="col-md-4">
     </div>
@@ -19,11 +20,10 @@
     <div class="row">
       <a *ngFor="let photo of photos;"
         [routerLink]="['/photos/preview/', photo.name]"
-        class="col-sm-3 img-fluid image">
+        class="col-sm-4 img-fluid image">
         <img src={{photo.downloadURL}} alt="pic" class="img-thumbnail">
         <p>{{photo.title}}</p>
-        <p>by {{photo.username}}</p>
-        <p>{{photo.creationDate}}</p>
+        <p>by {{photo.username|async}}</p>
       </a>
     </div>
   </div>

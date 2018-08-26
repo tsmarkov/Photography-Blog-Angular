@@ -78,6 +78,7 @@ export class DeleteProfileComponent {
   }
 
   cancel() {
+    this.user.reset();
     window.history.back();
   }
 

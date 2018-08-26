@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PhotosService } from '../../../core/services/photos.service';
 import { Photo } from '../../../core/models/photo.model';
 import { CategoryService } from '../../../core/services/category.service';
+import { AuthenticationService } from '../../../core/services/authentication.service';
 
 @Component({
   selector: 'app-photos-all',
@@ -13,7 +14,10 @@ export class PhotosAllComponent implements OnInit {
   category: number;
   categories;
 
-  constructor(private photoService: PhotosService, private categoryService: CategoryService) {
+  constructor(private authService: AuthenticationService,
+    private photoService: PhotosService,
+    private categoryService: CategoryService
+  ) {
     this.category = -1;
   }
 
@@ -76,6 +80,10 @@ export class PhotosAllComponent implements OnInit {
   private parseObjectToArray(data: Object) {
     if (data == null) {
       return [];
+    }
+
+    for (const photo of Object.values(data)) {
+      photo.username = this.authService.getUsernameByUserId(photo.userId);
     }
 
     return Object.values(data);

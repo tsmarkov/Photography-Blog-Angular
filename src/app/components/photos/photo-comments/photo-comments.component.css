@@ -1,27 +1,39 @@
 #comment-profile-pic {
-  width: 50%;
-  height: 50%;
-  border-radius: 50px;
+  width: 30px;
+  height: 30px;
+  border-radius: 80px;
   border: 2px solid black;
 }
 
 .comment-box {
-  background-color: rgb(235, 235, 235);
+  /* background-color: rgb(221, 221, 221); */
   border-radius: 10px;
   padding: 30px;
 }
 
+.invalid-input-field {
+  border: 1px solid red;
+}
+
 .comment-background {
-  background-color: rgb(200, 200, 200);
+  background-color: rgb(245, 245, 245);
   border-radius: 10px;
   padding: 10px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
+.center-form {
+  display: block;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
 
-.cmnt {
-  background-color: rgb(212, 212, 212); 
-  padding: 20px;
-  border-radius: 20px; 
+.center-form button {
+  margin: 10px;
+}
+
+.row {
+  display: block;
 }

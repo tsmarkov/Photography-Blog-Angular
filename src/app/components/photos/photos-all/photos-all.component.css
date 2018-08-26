@@ -1,10 +1,12 @@
-.col-sm-3 {
-    border: 1px solid black;
+.image {
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
 }
 
-.image {
-    margin: 10px;
-    padding: 3px;
-    cursor: pointer;
-    text-align: center;
+.album {
+  background-color: rgb(235, 235, 235);
+  border-radius: 10px;
+  padding: 50px;
 }

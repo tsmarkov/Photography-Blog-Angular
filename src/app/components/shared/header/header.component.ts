@@ -9,6 +9,7 @@ import { AuthenticationService } from '../../../core/services/authentication.ser
 export class HeaderComponent {
   isAuthenticated: boolean;
   userId: string;
+  user;
   username: string;
   profilePicture: string;
 
@@ -16,8 +17,12 @@ export class HeaderComponent {
     private authService: AuthenticationService
   ) {
     this.isAuthenticated = this.authService.isAuthenticated();
-    this.userId = this.authService.getUserId();
-    this.username = this.authService.getUsername();
-    this.profilePicture = this.authService.getProfilePicture();
+
+    if (this.isAuthenticated) {
+      this.userId = this.authService.getUserId();
+      this.username = this.authService.getUsername();
+      this.profilePicture = this.authService.getProfilePicture();
+
+    }
   }
 }

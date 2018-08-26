@@ -1,31 +1,59 @@
-<div class="container">
-  <div *ngIf="this.authService.isAuthenticated();else sign_in_or_up"
-    id="home-join">
+<div *ngIf="this.authService.isAuthenticated() && this.photos">
+  <div *ngIf="this.photos.length<2" class="container" id="home-join">
     <h1>Welcome {{this.authService.getUsername()}}!</h1>
     <div class="row">
       <div class="col-md-4"></div>
       <div class="col-md-4">
-        <a class="btn btn-outline-light" routerLink="/photos/all">View photos
-          for free</a>
-        <a cllass="btn btn-outline-light">or</a>
+        <a class="btn btn-outline-light" routerLink="/photos/all">View photos</a>
+        or
         <a class="btn btn-outline-light" routerLink="/photos/upload">upload
           yours</a>
       </div>
       <div class="col-md-4"></div>
-
     </div>
   </div>
-  <ng-template #sign_in_or_up>
-    <div id="home-join">
-      <h1>Wellcome!</h1>
-
-      <br>
-      <a class="btn btn-info btn-lg active"
-        role="button"
-        aria-pressed="true"
-        routerLink="/auth/signup">
-        Join now
-      </a>
+  <br>
+  <div *ngIf="this.photos.length == 1;else no_photos" class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <div class="text-center">
+        <img [src]="this.photos[0].downloadURL" alt="image" class="img-fluid">
+      </div>
     </div>
-  </ng-template>
+    <ng-template class="row" #no_photos>
+      <div class="col-md-12 text-center">
+        <h3>No photos yet</h3>
+      </div>
+    </ng-template>
+  </div>
 </div>
+
+<div *ngIf="this.authService.isAuthenticated();else sign_in_or_up">
+  <div *ngIf="this.photos && this.photos.length> 1;else no_photos_yet"
+    class="text-center recent-photos cotainer">
+    <div id="slideshow">
+      <div *ngFor="let photo of photos;">
+        <a [routerLink]="['/photos/preview/', photo.name]">
+          <img src={{photo.downloadURL}} alt="pic" class="img-fluid"
+            style="height: 700px; width: 1300px;">
+        </a>
+      </div>
+    </div>
+    <div id="greeting" class="centered">
+      Wellcome <br>{{this.authService.getUsername()}}
+    </div>
+  </div>
+</div>
+<ng-template #sign_in_or_up>
+  <div id="home-join">
+    <h1>Welcome to Photography blog</h1>
+    <p></p>
+    <br>
+    <a class="btn btn-info btn-lg active"
+      role="button"
+      aria-pressed="true"
+      routerLink="/auth/signup">
+      Join now
+    </a>
+  </div>
+</ng-template>

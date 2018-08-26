@@ -46,6 +46,7 @@ export class PhotoEditComponent implements OnInit {
       let title = photoInfo.title;
       let category = photoInfo.category;
       let location = photoInfo.location;
+      let description = photoInfo.description;
 
       if (title.invalid) {
         if (title.errors.required) {
@@ -72,6 +73,12 @@ export class PhotoEditComponent implements OnInit {
           this.toastr.error('Location length must be between 2 and 30 characters.');
         }
       }
+
+      if (description.invalid) {
+        if (description.errors.pattern) {
+          this.toastr.error('Invalid characters in description: "<",">","{","}" or "$"');
+        }
+      }
     }
   }
 
@@ -88,7 +95,7 @@ export class PhotoEditComponent implements OnInit {
             'title': [this.photo.title, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
             'location': [this.photo.location, [Validators.pattern('^[A-Za-zА-Яа-я ,\.-]+$'), Validators.minLength(2), Validators.maxLength(30)]],
             'category': [this.photo.category, [Validators.required, Validators.pattern('^[A-Za-zА-Яа-я -]+$'), Validators.minLength(2), Validators.maxLength(20)]],
-            'description': [this.photo.description]
+            'description': [this.photo.description, [Validators.pattern('^[^><}{$]+$')]]
           });
         })
         .catch(console.error);

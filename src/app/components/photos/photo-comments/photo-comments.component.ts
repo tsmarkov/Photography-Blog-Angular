@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PhotosService } from '../../../core/services/photos.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, PatternValidator } from '@angular/forms';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -21,7 +21,7 @@ export class PhotoCommentsComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.commentForm = this.fb.group({
-      message: ['', Validators.required]
+      message: ['', [Validators.required, Validators.pattern('^[^><}{$]+$')]]
     });
   }
 
@@ -41,6 +41,7 @@ export class PhotoCommentsComponent implements OnInit {
       let profilePicture = this.authService.getProfilePicture();
       let message = this.commentForm.get('message').value;
 
+
       this.photoService.commentPhoto(this.photoId, userId, profilePicture, username, message)
         .then(() => {
           this.loadComments();
@@ -48,7 +49,13 @@ export class PhotoCommentsComponent implements OnInit {
         })
         .catch((err) => this.toastr.error(err));
     } else {
-      this.toastr.error('Write the comment first');
+      let message = this.commentForm.controls.message;
+
+      if (message.errors.required) {
+        this.toastr.error('Write the comment first');
+      } else if (message.errors.pattern) {
+        this.toastr.error('Invalid characters in message');
+      }
     }
   }
 

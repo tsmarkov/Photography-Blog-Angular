@@ -8,6 +8,7 @@ import { AuthenticationGuard } from '../../core/guards/authentication.guard';
 import { ProfileGuard } from '../../core/guards/profile.guard';
 import { AdministratorGuard } from '../../core/guards/administrator.guard';
 import { DeleteProfileComponent } from './delete-profile/delete-profile.component';
+import * as firebase from 'firebase';
 
 @NgModule({
   imports: [

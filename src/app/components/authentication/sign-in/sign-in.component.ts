@@ -29,13 +29,29 @@ export class SignInComponent {
       let email: string = userValue.email;
       let password: string = userValue.password;
 
-      this.authService.signIn(email, password)
-        .then(() => {
-          this.toastr.success('Signed in successfully');
-          this.router.navigate(['/']);
-        })
-        .catch((err) => {
-          this.toastr.error(err.message);
+      this.comp()
+        .then((users) => {
+          let usersVal = users ? Object.values(users) : [];
+          let isfr = true;
+          usersVal.forEach(element => {
+            if (element['email'] === email) {
+              isfr = false;
+            }
+          });
+
+          if (isfr) {
+            this.toastr.error(emali);
+            return;
+          } else {
+            this.authService.signIn(email, password)
+              .then(() => {
+                this.toastr.success('Signed in successfully');
+                this.router.navigate(['/']);
+              })
+              .catch((err) => {
+                this.toastr.error(err.message);
+              })
+          }
         })
     } else {
       let userControls = this.user.controls;
@@ -44,7 +60,6 @@ export class SignInComponent {
       let password = userControls.password;
 
       if (email.invalid) {
-        console.log(email.errors);
         if (email.errors.required) {
           this.toastr.error('Email is required')
         } else if (email.errors.email) {
@@ -53,7 +68,6 @@ export class SignInComponent {
       }
 
       if (password.invalid) {
-        console.log(password.errors);
         if (password.errors.required) {
           this.toastr.error('Password is required')
         } else if (password.errors.minlength) {
@@ -62,4 +76,12 @@ export class SignInComponent {
       }
     }
   }
+
+  private comp() {
+    return this.authService.getAllUsers()
+      .then((snapshot) => {
+        return snapshot.val();
+      })
+  }
 }
+const emali = 'There is no user record corresponding to this indentifier. The user may have been deleted.';

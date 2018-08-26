@@ -1,3 +1,8 @@
 .invalid-input-field {
   border: 1px solid red;
 }
+
+button {
+  width: 150px;
+  margin: 20px;
+}

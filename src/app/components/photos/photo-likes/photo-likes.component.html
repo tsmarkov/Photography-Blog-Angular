@@ -1,14 +1,15 @@
-<div class="container">
-  <div class="row">
-    <button [class]="this.isLiked ?
-      'col-md-8 btn btn-outline-danger' :
-      'col-md-8 btn btn-info'"
-      (click)="click()">
-      <span *ngIf="this.likes != null;else zero_likes;">{{this.likes.length}}</span>
-      &#x2764;
-    </button>
-    <ng-template #zero_likes>0</ng-template>
-  </div>
-</div>
-<p *ngIf="this.isLiked" class="text-info text-left">Liked</p>
-<br>
+<button [class]="this.isLiked ?
+  'btn btn-outline-danger' :
+  'btn btn-info'"
+  (click)="click()">
+  <span *ngIf="this.likes != null;else zero_likes;">
+    {{this.likes.length}}
+  </span>
+  &#x2764;
+</button>
+<ng-template #zero_likes><span>0</span></ng-template>
+
+<p *ngIf="this.isLiked"
+  class="text-danger text-center">
+  Liked
+</p>

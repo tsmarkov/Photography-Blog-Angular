@@ -22,7 +22,7 @@ export class PhotoUploadComponent {
     this.photoInfo = this.fb.group({
       'title': ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
       'location': ['', [Validators.pattern('^[A-Za-zА-Яа-я ,\.-]+$'), Validators.minLength(2), Validators.maxLength(30)]],
-      'description': [''],
+      'description': ['', [Validators.pattern('^[^><}{$]+$')]],
       'category': ['', [Validators.required, Validators.pattern('^[A-Za-zА-Яа-я -]+$'), Validators.minLength(2), Validators.maxLength(20)]],
       'image': [null, Validators.required]
     });
@@ -47,6 +47,7 @@ export class PhotoUploadComponent {
       let uploadPhoto = new Photo(imageFile, title, category, location, description);
       this.photoService.upload(uploadPhoto)
         .then((photoId) => {
+          this.toastr.clear();
           this.toastr.success("Photo uploaded successfully");
           this.router.navigate([`/photos/preview/${photoId}`]);
         })
@@ -59,6 +60,7 @@ export class PhotoUploadComponent {
       let title = photoInfo.title;
       let category = photoInfo.category;
       let location = photoInfo.location;
+      let description = photoInfo.description;
 
       if (title.invalid) {
         if (title.errors.required) {
@@ -74,15 +76,21 @@ export class PhotoUploadComponent {
         } else if (category.errors.minlength || category.errors.maxlength) {
           this.toastr.error('Category length must be between 2 and 20 characters.');
         } else if (category.errors.pattern) {
-          this.toastr.error('Category can contain only alphabetical characters, dashes and spaces.');
+          this.toastr.error('Category can contain only alphabetical characters, dashes and spaces');
         }
       }
 
       if (location.invalid) {
         if (location.errors.pattern) {
-          this.toastr.error('Location can contain only alphabetical characters, dashes, spaces, commas and dots.');
+          this.toastr.error('Location can contain only alphabetical characters, dashes, spaces, commas and dots');
         } else if (location.errors.minlength || location.errors.maxlength) {
-          this.toastr.error('Location length must be between 2 and 30 characters.');
+          this.toastr.error('Location length must be between 2 and 30 characters');
+        }
+      }
+
+      if (description.invalid) {
+        if (description.errors.pattern) {
+          this.toastr.error('Invalid characters in description: "<",">","{","}" or "$"');
         }
       }
     }

@@ -42,19 +42,23 @@ export class EditProfileComponent implements OnInit {
       let fullName = this.userForm.get('fullName').value;
       let profilePicture: File = this.userForm.get('profilePicture').value;
       let location = this.userForm.get('location').value;
-      let website = this.userForm.get('website').value;
+      let website = this.userForm.get('website').value ? this.userForm.get('website').value : '';
       let bio = this.userForm.get('bio').value;
+
+      this.toastr.info('Profile is updating...')
 
       if (profilePicture) {
         this.uploadNewProfilePicture(profilePicture, fullName)
           .then(photoUrl => {
             this.updateUserData(fullName, photoUrl, location, website, bio);
           })
-          .catch(console.error)
+          .catch((err) => {
+            this.toastr.clear();
+            this.toastr.error(err.message);
+          })
       } else {
         this.updateUserData(fullName, this.url, location, website, bio)
       }
-
     } else {
       let userControls = this.userForm.controls;
 
@@ -81,14 +85,16 @@ export class EditProfileComponent implements OnInit {
       }
 
       if (website.invalid) {
+        console.log(website);
+
         if (website.errors.pattern) {
           this.toastr.error('Invalid URL')
         }
       }
 
       if (bio.invalid) {
-        if (website.errors.pattern) {
-          this.toastr.error('Invalid characters')
+        if (bio.errors.pattern) {
+          this.toastr.error('Invalid characters in bio: "<",">","{","}" or "$"');
         }
       }
     }
@@ -98,6 +104,7 @@ export class EditProfileComponent implements OnInit {
     this.authService
       .updateUser(fullName, photoUrl, location, website, bio)
       .then(() => {
+        this.toastr.clear();
         this.toastr.success('Profile updated');
         this.router.navigate([`/user/profile/${this.userData.userId}`]);
 
@@ -157,8 +164,8 @@ export class EditProfileComponent implements OnInit {
               'fullName': [this.userData.fullName, [Validators.required, Validators.pattern('^[A-Za-zА-Яа-я -]+ [A-Za-zА-Яа-я -]+$')]],
               'profilePicture': [null],
               'location': [location, [Validators.pattern('^[A-Za-zА-Яа-я ,\.-]+$'), Validators.minLength(2), Validators.maxLength(30)]],
-              'website': [website, [Validators.pattern('^[http|https|:|/]*[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$')]],
-              'bio': [bio, [Validators.pattern('^[^><$}{\][\'\"|.+]+$')]]
+              'website': [website, [Validators.pattern('^(http|https)+:\/\/(www\.)*[A-Za-z0-9\/-]+(\.[A-Za-z\/0-9-%#]+)$')]],
+              'bio': [bio, [Validators.pattern('^[^><}{$]+$')]]
             });
           })
           .catch(err => {
