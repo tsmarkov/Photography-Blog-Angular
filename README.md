@@ -15,17 +15,18 @@ Also can view other users profiles and their uploaded photos.
 Admins can edit and delete all users photos, edit and delete users profiles and give users administrator privileges.**
 
 ## Functionality
+
 #### • User authentication
     ◦ Sign in existing user with email and password
     ◦ Sign up new user with email, full name and password
     ◦ Sign out from the application
+    
 #### • User profile
     ◦ Upload new profile picture
     ◦ Edit full name
     ◦ Add or edit optional properties
     ◦ Delete profile
-#### • Home
-    ◦ Slideshow of the most recently added photos
+    
 #### • Photos
     ◦ Preview
     ◦ Category filter
@@ -37,6 +38,7 @@ Admins can edit and delete all users photos, edit and delete users profiles and 
     ◦ Comment
         - write
         - delete
+        
         
 ## Starting the project
 ##### • Download the project
@@ -50,19 +52,18 @@ Admins can edit and delete all users photos, edit and delete users profiles and 
     
 ##### • Setting up Firebase
     ◦ Create file "firebase.config.ts" in base folder
-    ◦ Add new project in [Firebase](https://console.firebase.google.com/)
-    ◦ Copy your automaticly generated "Web Setup" configs and place it in "firebase.config.ts" coresponding properties
-    ```
-      export const firebaseConfig = {
+    ◦ Add new project in https://console.firebase.google.com/
+    
+#### • Copy your automaticly generated "Web Setup" configs and place it in "firebase.config.ts" coresponding properties
+    ◦ export const firebaseConfig = {
           apiKey: "put-your-apiKey-here",
           authDomain: "your-authDomain-here",
           databaseURL: "put-your-databaseURL-here",
           projectId: "put-your-projectId-here",
           storageBucket: "put-your-storageBucket-here",
-          messagingSenderId: "put-your-messagingSenderId-here"}
-    ```
+          messagingSenderId: "put-your-messagingSenderId-here"
+      }
     
-
 ##### • Run it
-    ◦ ng serve --open
-    ◦ Starts on [localhost:4200](localhost:4200)
+    ◦ ng serve
+    ◦ Starts on localhost:4200
