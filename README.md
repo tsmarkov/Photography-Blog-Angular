@@ -16,9 +16,9 @@ Admins can edit and delete all users photos, edit and delete users profiles and 
 
 ## Functionality
 #### • User authentication
-    1. Sign in existing user with email and password. 
-    2. Sign up new user with email, full name and password. 
-    3. Sign out from the application. 
+    *Sign in existing user with email and password. 
+    *Sign up new user with email, full name and password. 
+    *Sign out from the application. 
 #### • User profile
     - Upload new profile picture. 
     - Change full name.
