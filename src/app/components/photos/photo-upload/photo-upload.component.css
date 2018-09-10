@@ -21,8 +21,8 @@ label {
   background-color: rgb(235, 235, 235);
   color: #0162AD;
   border-radius: 50px;
-  padding: 200px;
-  margin: 20px;
+  padding: 10%;
+  margin: 10%;
 }
 
 .upload-form {

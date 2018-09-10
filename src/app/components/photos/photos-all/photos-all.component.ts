@@ -38,14 +38,17 @@ export class PhotosAllComponent implements OnInit {
         .getAllByCategory(categoryName)
         .then((res) => {
           let photosIds = this.parseObjectToArray(res);
+          console.log(photosIds);
 
           for (const element of photosIds) {
             this.photoService
               .getByName(element.photoId)
               .then((data) => {
+                this.attachUsernames([data])
                 photos.push(data);
               })
           }
+          console.log(photos);
 
           this.photos = photos;
         })
@@ -61,6 +64,7 @@ export class PhotosAllComponent implements OnInit {
     this.photoService.getAll()
       .then(data => {
         this.photos = this.parseObjectToArray(data);
+        this.attachUsernames(this.photos);
       })
       .catch(err => console.error(err));
   }
@@ -82,10 +86,14 @@ export class PhotosAllComponent implements OnInit {
       return [];
     }
 
-    for (const photo of Object.values(data)) {
+    let values = Object.values(data);
+
+    return values;
+  }
+
+  private attachUsernames(data) {
+    for (const photo of data) {
       photo.username = this.authService.getUsernameByUserId(photo.userId);
     }
-
-    return Object.values(data);
   }
 }
