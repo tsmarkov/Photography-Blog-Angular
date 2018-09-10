@@ -33,7 +33,6 @@ export class PhotoGuard implements CanActivate {
         let currentUser = this.authService.getUserId();
 
         if (admin) {
-          this.toastr.success('Admin си, влязай!')
           return true;
         }
 
@@ -46,7 +45,6 @@ export class PhotoGuard implements CanActivate {
 
 
             if (data.userId === currentUser) {
-              this.toastr.success('Върнах truе, да знаеш.')
               return true;
             } else {
               this.toastr.error(`You don't have permission to access the requested data`);
