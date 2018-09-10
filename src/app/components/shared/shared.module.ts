@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import * as firebase from 'firebase';
 import { UserRoutingModule } from '../user/user-routing.module';
 
 @NgModule({
@@ -14,7 +12,7 @@ import { UserRoutingModule } from '../user/user-routing.module';
     CommonModule,
     UserRoutingModule
   ],
-  declarations: [HeaderComponent, FooterComponent],
-  exports: [HeaderComponent, FooterComponent]
+  declarations: [HeaderComponent],
+  exports: [HeaderComponent]
 })
 export class SharedModule { }

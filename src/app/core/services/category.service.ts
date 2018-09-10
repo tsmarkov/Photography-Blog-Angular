@@ -1,5 +1,4 @@
 import { Injectable } from "../../../../node_modules/@angular/core";
-import { Photo } from '../models/photo.model'
 import { ToastrService } from "../../../../node_modules/ngx-toastr";
 import * as firebase from 'firebase';
 import { AuthenticationService } from "./authentication.service";

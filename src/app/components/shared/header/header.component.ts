@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 
 @Component({
@@ -22,7 +22,6 @@ export class HeaderComponent {
       this.userId = this.authService.getUserId();
       this.username = this.authService.getUsername();
       this.profilePicture = this.authService.getProfilePicture();
-
     }
   }
 }

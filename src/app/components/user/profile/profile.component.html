@@ -40,7 +40,7 @@
     <div *ngIf="this.user">
       <a *ngIf="this.isAdmin ||
         this.authService.getUserId() === user.userId"
-        [routerLink]="['/user/edit/', this.user.userId]"
+        [routerLink]="['/users/edit/', this.user.userId]"
         class="btn btn-primary">
         Edit
       </a>

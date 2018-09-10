@@ -5,7 +5,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PhotosService } from '../../../core/services/photos.service';
 import { CategoryService } from '../../../core/services/category.service';
-import { async } from 'q';
 
 @Component({
   selector: 'app-delete-profile',

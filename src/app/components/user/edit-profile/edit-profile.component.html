@@ -86,7 +86,7 @@
     <br>
     <div *ngIf="(this.authService.getUserId() === userData.userId) ||
       (this.isAdmin)">
-      <a [routerLink]="['/user/delete/', userData.userId]"
+      <a [routerLink]="['/users/delete/', userData.userId]"
         class="btn btn-danger">
         Delete
       </a>

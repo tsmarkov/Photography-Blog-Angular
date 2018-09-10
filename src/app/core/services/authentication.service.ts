@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { PhotosService } from './photos.service';
 
 @Injectable({
     providedIn: 'root'

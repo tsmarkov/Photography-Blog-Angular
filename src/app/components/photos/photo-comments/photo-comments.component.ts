@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PhotosService } from '../../../core/services/photos.service';
-import { FormBuilder, FormGroup, Validators, PatternValidator } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 

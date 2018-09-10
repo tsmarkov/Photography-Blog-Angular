@@ -106,7 +106,7 @@ export class EditProfileComponent implements OnInit {
       .then(() => {
         this.toastr.clear();
         this.toastr.success('Profile updated');
-        this.router.navigate([`/user/profile/${this.userData.userId}`]);
+        this.router.navigate([`/users/profile/${this.userData.userId}`]);
 
         this.authService.updateStorageValues(fullName, photoUrl);
       })
